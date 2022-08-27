@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 from psycopg2.pool import SimpleConnectionPool
 
 load_dotenv()
-# database_url = os.environ.get("DATABASE_URI")
-user = os.environ.get("USER")
-password = os.environ.get("PASSWORD")
-host = os.environ.get("HOST")
-database = os.environ.get("DATABASE")
+database_url = os.environ.get("DATABASE_URI")
+# user = os.environ.get("USER")
+# password = os.environ.get("PASSWORD")
+# host = os.environ.get("HOST")
+# database = os.environ.get("DATABASE")
 
 
 def connect():
@@ -50,9 +50,10 @@ def connect():
 # conn = psycopg2.connect(host = 'localhost', database="climacool", user = "postgres", password="admin")
 
 
-pool = SimpleConnectionPool(
-    minconn=1, maxconn=10, user=user, password=password, host=host, database=database
-)
+# pool = SimpleConnectionPool(
+#     minconn=1, maxconn=10, user=user, password=password, host=host, database=database
+# )
+pool = SimpleConnectionPool(minconn=1, maxconn=10, database_url=database_url)
 
 
 @contextmanager
