@@ -1,0 +1,84 @@
+{% extends "base2.html" %}
+{% block title %}Make offer{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Manufactured</h1>
+
+<!-- <h2>Offer: {{ offer }}</h2> -->
+
+
+<!-- <h2>Create excel file</h2> -->
+{% if offer %}
+<a href="{{ url_for('generate_custom_offer_excel', offer_name=offer_name, offer_type = 'manufactured')}}">Create excel file</a>
+{% else %}
+<h4>No offer</h4>
+{% endif %}
+<br>
+
+
+    <table>
+        <tr>
+            <th>Item no.</th>
+            <th>Item type</th>
+            <th>Characteristics</th>
+            <th>Thickness</th>
+            <th>Area</th>
+            <th>Flanges</th>
+            <th>Corners</th>
+            <th>Metal sheet price per sqm</th>
+            <th>Flanges price per meter</th>
+            <th>Corners price per item</th>
+            <th>UM</th>
+            <th>Quantity</th>
+            <th>Price per UM</th>
+            <th>Total price</th>
+            <th>Item Type</th>
+            <th>Obs</th>
+
+
+    
+        </tr>
+        {% if offer %}
+          {% for item in offer %}
+          <tr>
+              <th>{{ item[0] }}</th>
+              <th>{{ item[13] }}</th>
+              <th>{{ item[14] }}</th>
+              <th>{{ item[15] }}</th>
+              <th>{{ item[16] }}</th>
+              <th>{{ item[17] }}</th>
+              <th>{{ item[18] }}</th>
+              <th>{{ item[19] }}</th>
+              <th>{{ item[20] }}</th>
+              <th>{{ item[21] }}</th>
+              <th>{{ item[9] }}</th> 
+              <th>{{ item[10] }}</th>  
+              <th>{{ item[22] }}</th>
+              {% if item[23] %}
+              <th>{{ "%0.2f"|format(item[23]) }}</th>
+            {% else %}
+            <th>{{ item[23] }}</th>
+            {% endif %}            
+              <th>{{ item[11] }}</th>  
+              <th>{{ item[12] }}</th>  
+
+          </tr>
+          {% endfor %}
+        {% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+

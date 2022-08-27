@@ -1,0 +1,92 @@
+{% extends "base2.html" %}
+{% block title %}Make offer{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Bought</h1>
+<h2>Offer name: {{ offer_name }}</h2>
+<!-- {{offer_name}} -->
+
+<!-- <h2>Offer: {{ offer }}</h2> -->
+{% if offer %}
+<a href="{{ url_for('generate_custom_offer_excel', offer_name=offer_name, offer_type = 'bought')}}">Create excel file</a>
+{% else %}
+<h4>No offer</h4>
+{% endif %}
+<br>
+
+{% if offer %}
+    <table>
+        <tr>
+            <th>Item no.</th>
+            <th>Item type</th>
+            <th>Characteristics</th>
+            <th>UM</th>
+            <th>Quantity</th>
+            <th>Price per UM</th>
+            <th>Total price</th>
+            <th>Category</th>
+            <th>Observations</th>
+        </tr>
+    {% for item in offer %}
+        <tr>
+          <td>{{ item[0] }}</td>
+          <td>{{ item[13] }}</td>
+          <td>{{ item[14] }}</td>
+          <td>{{ item[9] }}</td>
+          <td>{{ item[10] }}</td>
+          <td>{{ item[22] }}</td>
+          {% if item[23] %}
+              <th>{{ "%0.2f"|format(item[23]) }}</th>
+            {% else %}
+            <th>{{ item[23] }}</th>
+            {% endif %}
+          <td>{{ item[11] }}</td>
+          <td>{{ item[12] }}</td>  
+        </tr>
+    {% endfor %}
+{% endif %}
+<!-- {{ table }} -->
+
+        {% if table %}
+            <table>
+              <tr>
+                <th>Item no</th>
+                <th>Item name</th>
+                <th>Item characteristics</th>
+                <th>UM</th>
+                <th>Quantity</th>
+                <th>Supplier name</th>
+              </tr>
+          {% for b_item in table %}
+              <tr>
+                <td>{{b_item[0]}}</td>
+                <td>{{b_item[1] }}</td>
+                <td>{{b_item[2]}}</td>
+                <td>{{b_item[3]}}</td>
+                <td>{{b_item[4]}}</td>
+                <td><a href="{{url_for('bought_items_supplier', offer_name = offer_name, supplier_name = b_item[6]) }}">{{b_item[6]}}</a></td>
+              </tr>
+          {% endfor %}
+        </table>
+        {% else %}
+          <h4>No table</h4>
+        {% endif %}
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

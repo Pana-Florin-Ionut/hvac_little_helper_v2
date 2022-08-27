@@ -1,0 +1,129 @@
+{% extends "base2.html" %}
+{% block title %}Insert items{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Create Offer</h1>
+
+<h2>{{ offer_name }}</h2>
+<h2>{{ offer_detail }}</h2>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+    <table>
+        <tr>
+            <th>{{ form.no.label() }}</th>
+            <th>{{ form.item.label() }}</th>
+            <th>{{ form.characteristics_A.label() }}</th>
+            <th>{{ form.characteristics_B.label() }}</th>
+            <th>{{ form.characteristics_C.label() }}</th>
+            <th>{{ form.characteristics_D.label() }}</th>
+            <th>{{ form.characteristics_E.label() }}</th>
+            <th>{{ form.characteristics_F.label() }}</th>
+            <th>{{ form.um.label() }}</th>
+            <th>{{ form.quantity.label() }}</th>
+            <th>{{ form.category.label() }}</th>
+            <th>{{ form.observations.label() }}</th>
+        </tr>
+        <tr>
+            <td>{{ form.no() }}</td>
+            <td>{{ form.item() }}</td>
+            <td>{{ form.characteristics_A() }}</td>
+            <td>{{ form.characteristics_B() }}</td>
+            <td>{{ form.characteristics_C() }}</td>
+            <td>{{ form.characteristics_D() }}</td>
+            <td>{{ form.characteristics_E() }}</td>
+            <td>{{ form.characteristics_F() }}</td>
+            <td>{{ form.um() }}</td>
+            <td>{{ form.quantity() }}</td>   
+            <td>{{ form.category() }}</td>       
+            <td>{{ form.observations() }}</td>  
+        </tr>
+    </table> 
+  {{ form.submit(class="btn btn-secondary") }}
+
+{% if offer %}
+<table>
+    <tr>
+        <th>{{ form.no.label() }}</th>
+        <th>{{ form.item.label() }}</th>
+        <th>{{ form.characteristics_A.label() }}</th>
+        <th>{{ form.characteristics_B.label() }}</th>
+        <th>{{ form.characteristics_C.label() }}</th>
+        <th>{{ form.characteristics_D.label() }}</th>
+        <th>{{ form.characteristics_E.label() }}</th>
+        <th>{{ form.characteristics_F.label() }}</th>
+        <th>{{ form.um.label() }}</th>
+        <th>{{ form.quantity.label() }}</th>
+        <th>{{ form.category.label() }}</th>
+        <th>{{ form.observations.label() }}</th>
+        <th>Update</th>
+        <th>Delete</th>
+
+
+    </tr>
+    {% for item in offer %}
+    <tr>
+        <td>{{ item[0] }}</td>
+        <td>{{ item[2] }}</td>
+        <td>{{ item[3] }}</td>
+        <td>{{ item[4] }}</td>
+        <td>{{ item[5] }}</td>
+        <td>{{ item[6] }}</td>
+        <td>{{ item[7] }}</td>
+        <td>{{ item[8] }}</td>
+        <td>{{ item[9] }}</td>
+        <td>{{ item[10] }}</td>
+        <td>{{ item[11] }}</td>
+        <td>{{ item[12] }}</td>
+        <td><a href="{{ url_for('update_offer_item', item_id=item[0], offer_id=offer_detail[0]) }}" class="btn btn-outline-primary">Update</a></td>
+
+        <!-- modal button  -->
+    <td><button onclick="document.getElementById('{{item[0]}}').style.display='block'" class="btn btn-danger">Delete</button>
+
+      <!-- start of modal -->
+      <div id="{{item[0]}}" class="w3-modal">
+        <div class="w3-modal-content">
+          <header class="modal-header"> 
+            <span onclick="document.getElementById('{{item[0]}}').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Do you really want to delete - {{item[0]}} {{item[1]}} {{item[2]}} {{item[3]}} {{item[4]}} {{item[5]}} {{item[6]}} {{item[7]}} </h2>
+          </header> 
+          <div class="w3-container grid text-center">
+          <p>Note that this is ireversible</p>           
+          <a href="{{ url_for('delete_offer_item', item_id=item[0], offer_name=offer_name) }}" class="btn btn-danger">Delete</a>         
+          </div>          
+        </div>
+      </div>   
+    </td>
+    <!-- end of modal -->
+    </tr>
+    
+    {% endfor %}
+{% endif %}
+
+<a href="{{ url_for('offer_page', idx=offer_detail[0])}}" class="btn btn-primary">Finalize offer</a>
+
+
+{% block javascript %}
+<script>
+// Get the modal
+var modal = document.getElementsByClassName('w3-modal');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+  
+{% endblock %}
+{% endblock %}

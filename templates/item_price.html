@@ -1,0 +1,36 @@
+{% extends "base2.html" %}
+{% block title %}Item price{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+{% endif %}
+
+<h1>Item page</h1>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.table.label }}
+    {{ form.table }}
+    {{ form.dimension.label }}
+    {{ form.dimension }}
+    {{ form.submit }}
+</form>
+
+
+{% if item %}
+   <p>Item: {{ form.table._value() }} dimension: {{ form.dimension._value() }} price: {{ item[1] }} area: {{item[2]}} </p>
+   
+   <p>Item: <a href="{{ url_for('update_item', table = form.table._value(), dimension = form.dimension._value(), price = item[1], surface = item[2]) }}">{{ form.table._value() }}</a>
+     dimension: {{ form.dimension._value() }} price: {{ item[1] }} area: {{ item[2] }} </p>
+
+{% else %}
+<p> There are no items yet</p>
+
+{% endif %}
+{% endblock %}

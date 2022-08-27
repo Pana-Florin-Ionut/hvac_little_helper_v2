@@ -1,0 +1,42 @@
+{% extends "base2.html" %}
+{% block title %}Metal sheet prices{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+
+
+<br>
+<div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Create metal sheet table</h1>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.material.label() }}
+        {{ form.material() }}
+        <br>
+        {{form.submit()}}
+    </form>
+    <br>
+    
+    {% if tables %}
+    <h3>Select sheet name</h3>
+        {% for table in tables %}        
+            <a href="{{ url_for('metal_sheet', name = table[1]) }}" class="btn btn-outline-dark">{{ table[1] }}</a><a href="{{ url_for('metal_sheet_delete', table=table[1]) }}" class="btn btn-danger">Delete table</a>
+            <br>
+        {% endfor %}
+    
+    {% else %}
+    <p> There are no items yet</p>
+        
+    {% endif%}
+      
+</div>
+
+{% endblock %}

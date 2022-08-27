@@ -1,0 +1,72 @@
+{% extends "base2.html" %}
+{% block title %}Clients{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  
+<div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Clients</h1>
+    
+    <h1>Add Clients</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.client_name.label() }}        
+        {{ form.client_name() }}
+        <br>
+        {{ form.client_identification.label() }}        
+        {{ form.client_identification() }}
+        <br>
+        {{ form.client_address.label() }}        
+        {{ form.client_address() }}
+        <br>
+        {{ form.client_email.label() }}        
+        {{ form.client_email() }}
+        <br>
+        {{ form.about.label() }}        
+        {{ form.about() }}
+        <br>
+        {{form.submit()}}
+    </form>
+    <br>
+
+    <a href="{{ url_for('clients') }}" class="btn btn-info">Clients</a>
+    <br>
+    <h1>Curent Clients</h1>
+{% if table %}
+<table>
+    <tr>
+        <th>Client id</th>
+        <th>Client Name</th>
+        <th>Client Identification</th>
+        <th>Client Address</th>
+        <th>Client email</th>
+        <th>About</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    
+    {% for row in table %}
+    <tr>
+        <th>{{ row[0] }}</th>
+        <th>{{ row[1] }}</th>
+        <th>{{ row[2] }}</th>
+        <th>{{ row[3] }}</th>
+        <th>{{ row[4] }}</th>
+        <th>{{ row[5] }}</th>
+        <th><a href="{{ url_for('update_clients', id = row[0])}}" class="btn btn-outline-dark">Update</a></th>
+        <th><a href="{{ url_for('delete_clients', idx = row[0])}}" class="btn btn-danger">Delete</a></th>
+    </tr>
+    {% endfor %}
+
+</table>
+    
+{% endif %}
+
+  
+{% endblock %}

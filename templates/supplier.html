@@ -1,0 +1,52 @@
+{% extends "base2.html" %}
+{% block title %}Metal sheet prices{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+
+
+<br>
+<div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Supplier table</h1>
+    {{ supplier_details }}
+
+    <div class="row">
+        <div class="col">
+    
+        </div>
+        <div class="col-6">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <table class="table">
+                    <tr>    
+                        <th>{{ form.product_sold.label() }}</th>
+                        <td>{{ form.product_sold() }}</td>
+                    </tr>
+                    
+                    <tr class = "d-flex justify-content-center">            
+                        <th> {{ form.submit() }}</th>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col">
+    
+        </div>
+    
+    </div>
+
+{% if products_sold %}
+    {{ products_sold }}
+{% endif %}
+
+
+
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base2.html" %}
+{% block title %}Projects{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  
+<div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Projects</h1>
+    
+    <br>
+    
+    {% if projects %}
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Client ID</th>
+        <th>Client name</th>
+        <th>Project Name</th>
+        <th>Address</th>
+        <th>Date Created</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      {% for project in projects %}
+      <tr>
+        <td>{{ project[0] }}</td>
+        <td>{{ project[1] }}</td>
+        <td>{{ project[2] }}</td>
+        <td><a href="{{ url_for('project_page', idx = project[0]) }}">{{ project[3] }}</a></td>
+        <td>{{ project[4] }}</td>
+        <td>{{ project[6].strftime('%H:%M - %d-%B-%Y') }}</td>
+        <td><a href="{{ url_for('update_project', idx = project[0])}}" class="btn btn-info">Update</a></td>
+
+        
+    <!-- modal button  -->
+    <td><button onclick="document.getElementById('{{project[0]}}').style.display='block'" class="btn btn-danger">Delete</button>
+
+      <!-- start of modal -->
+      <div id="{{project[0]}}" class="w3-modal">
+        <div class="w3-modal-content">
+          <header class="modal-header"> 
+            <span onclick="document.getElementById('{{project[0]}}').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Do you really want to delete - {{ project[3] }}</h2>
+          </header> 
+          <div class="w3-container grid text-center">
+          <p>Note that this is ireversible</p>           
+          <a href="{{ url_for('delete_project', idx = project[0]) }}" class="btn btn-danger">Delete</a>         
+          </div>          
+        </div>
+      </div>   
+    </td>
+    <!-- end of modal -->
+    
+      </tr>
+          
+    
+        {%endfor %}
+    
+    </table>
+    
+        
+    
+    {% endif %}
+
+
+{% endblock %}

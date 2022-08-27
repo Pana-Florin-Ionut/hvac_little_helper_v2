@@ -1,0 +1,93 @@
+{% extends "base2.html" %}
+{% block title %}Create Offer 2{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Make Offer </h1>
+
+<!-- <h2>{{ project }}</h2> -->
+<h3>Client: {{project[2] }}</h3>
+<h3>Project: {{project[3] }}</h3>
+
+
+
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+    <table>
+        <tr>
+            <th>{{ form.item.label() }}</th>
+            <th>{{ form.characteristics_A.label() }}</th>
+            <th>{{ form.characteristics_B.label() }}</th>
+            <th>{{ form.characteristics_C.label() }}</th>
+            <th>{{ form.characteristics_D.label() }}</th>
+            <th>{{ form.characteristics_E.label() }}</th>
+            <th>{{ form.characteristics_F.label() }}</th>
+            <th>{{ form.isolation.label() }}</th>
+            <th>{{ form.um.label() }}</th>
+            <th>{{ form.quantity.label() }}</th>
+        </tr>
+        <tr>
+            <td>{{ form.item() }}</td>
+            <td>{{ form.characteristics_A() }}</td>
+            <td>{{ form.characteristics_B() }}</td>
+            <td>{{ form.characteristics_C() }}</td>
+            <td>{{ form.characteristics_D() }}</td>
+            <td>{{ form.characteristics_E() }}</td>
+            <td>{{ form.characteristics_F() }}</td>
+            <td>{{ form.isolation() }}</td>
+            <td>{{ form.um() }}</td>
+            <td>{{ form.quantity() }}</td>            
+        </tr>
+    </table> 
+  {{ form.submit() }}
+
+
+<table>
+    <tr>
+        <th>Item no.</th>
+        <th>{{ form.item.label() }}</th>
+        <th>{{ form.characteristics_A.label() }}</th>
+        <th>{{ form.characteristics_B.label() }}</th>
+        <th>{{ form.characteristics_C.label() }}</th>
+        <th>{{ form.characteristics_D.label() }}</th>
+        <th>{{ form.characteristics_E.label() }}</th>
+        <th>{{ form.characteristics_F.label() }}</th>
+        <th>{{ form.isolation.label() }}</th>
+        <th>{{ form.um.label() }}</th>
+        <th>{{ form.quantity.label() }}</th>
+        <th>Surface</th>
+        <th>Total Surface</th>  
+        <th>Price</th>  
+        <th>Total Price</th> 
+
+    </tr>
+    {% for arg in args %}
+    <tr>
+        <th>{{ arg[0] }}</th>
+        <th>{{ arg[1] }}</th>
+        <th>{{ arg[2] }}</th>
+        <th>{{ arg[3] }}</th>
+        <th>{{ arg[4] }}</th>
+        <th>{{ arg[5] }}</th>
+        <th>{{ arg[6] }}</th>
+        <th>{{ arg[7] }}</th>
+        <th>{{ arg[8] }}</th>
+        <th>{{ arg[9] }}</th>
+        <th>{{ arg[10] }}</th>
+        <th>{{ arg[11] }}</th>
+        <th>{{ arg[12] }}</th>
+        <th>{{ arg[13] }}</th>
+        <th>{{ arg[14] }}</th>
+
+    </tr>
+    {% endfor %}
+  
+{% endblock %}

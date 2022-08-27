@@ -1,0 +1,29 @@
+{% extends "base2.html" %}
+{% block title %}Upload Excel{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    {% if get_flashed_messages() %}
+        {% for flash in get_flashed_messages() %}
+            {{ flash }}
+        {% endfor %}
+    {% endif %}
+
+    <!-- <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.file.label() }}        
+        {{ form.file() }}
+        <br>
+        {{form.upload()}}
+    </form> -->
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <br>
+
+  
+{% endblock %}

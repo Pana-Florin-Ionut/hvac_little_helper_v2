@@ -1,0 +1,73 @@
+{% extends "base2.html" %}
+{% block title %}Offers{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Offers Page</h1>
+
+{% if offers %}
+<table>
+  <tr>
+    <th>Offer No.</th>
+    <th>Project no.</th>
+    <th>Offer name</th>
+    <th>Metal sheet</th>
+    <th>Date created</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+
+  {% for offer in offers%}
+  <tr>
+    <td>{{ offer[0] }}</td>
+    <td>{{ offer[1] }}</td>
+    <td><a href="{{ url_for('offer_page', idx=offer[0]) }}">{{ offer[2] }}</a></td>
+    <td>{{ offer[3] }}</td>
+    <td>{{ offer[4].strftime('%H:%M - %d-%B-%Y') }}</td>
+    <td><a href="{{ url_for('update_offer', offer_name=offer[2]) }}" id = "btn" class="btn btn-outline-secondary">Update</a></td>
+    
+    <!-- modal button  -->
+    <td><button onclick="document.getElementById('{{offer[2]}}').style.display='block'" class="btn btn-danger">Delete</button>
+
+      <!-- start of modal -->
+      <div id="{{offer[2]}}" class="w3-modal">
+        <div class="w3-modal-content">
+          <header class="modal-header"> 
+            <span onclick="document.getElementById('{{offer[2]}}').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Do you really want to delete - {{ offer[2] }}</h2>
+          </header> 
+          <div class="w3-container grid text-center">
+          <p>Note that this is ireversible</p>           
+          <a href="{{ url_for('delete_offer', offer_name=offer[2]) }}" class="btn btn-danger">Delete</a>         
+          </div>          
+        </div>
+      </div>   
+    </td>
+    <!-- end of modal -->
+
+  {% endfor %}
+{% endif %}
+</table>
+
+
+  
+</div>
+
+{% block javascript %}
+<script>
+// Get the modal
+var modal = document.getElementsByClassName('w3-modal');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+{% endblock %}
+ 
+{% endblock %}

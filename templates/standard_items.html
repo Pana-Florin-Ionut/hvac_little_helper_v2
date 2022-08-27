@@ -1,0 +1,52 @@
+{% extends "base2.html" %}
+{% block title %}Standard items{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+
+{% if get_flashed_messages() %}
+{% for flash in get_flashed_messages() %}
+    {{ flash }}
+{% endfor %}
+{% endif %}
+
+<h1>Standard Items</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.item_name.label() }}
+    {{ form.item_name() }}
+    <br>
+    {{ form.about.label() }}
+    {{ form.about() }}
+    <br>
+
+    {{form.submit()}}
+</form>
+<br>
+  
+{% if table %}
+<table>
+    <tr>
+        <th>Item nr.</th>
+        <th>Item name</th>
+        <th>About</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for item in table %}
+    <tr>
+        <th>{{ item[0] }}</th>
+        <th><a href="{{ url_for('product', product_name=item[1]) }}">{{ item[1] }}</a></th>
+        <th>{{ item[2] }}</th>
+        <th><a href="{{ url_for('update_standard_item', item_name=item[1]) }}">Update</a></th>
+        <th><a href="{{ url_for('delete_standard_item', idx = item[0]) }}">Delete</a></th>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+<br>
+
+
+{% endblock %}

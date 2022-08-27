@@ -1,0 +1,33 @@
+{% extends "base2.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+  
+{% if get_flashed_messages() %}
+{% for flash in get_flashed_messages() %}
+    {{ flash }}
+{% endfor %}
+{% endif %}
+<h1>Prices</h1>
+
+<form method="POST">
+{{ form.hidden_tag() }}
+{{ form.table }}
+{{ form.submit }}
+</form>
+
+
+{% if items %}
+{% for item in items%}
+<p>Diameter: <a href="{{ url_for('update_item', table = form.table._value(), dimension = item[0], price = item[1], surface = item[2]) }}">{{ item[0] }}</a>, Price: {{item[1]}}, Area: {{item[2]}} <br></p>
+{% endfor %}
+{% else %}
+<p> There are no items yet</p>
+
+{% endif %}
+  
+{% endblock %}
+

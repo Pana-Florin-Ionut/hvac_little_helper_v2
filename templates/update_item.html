@@ -1,0 +1,58 @@
+{% extends "base2.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  
+{% if get_flashed_messages() %}
+{% for flash in get_flashed_messages() %}
+    {{ flash }}
+{% endfor %}
+{% endif %}
+
+<h1>Update page</h1>
+{% if table %}
+<br>
+table: {{ table }}
+dimension: {{ dimension }}
+price: {{ price }}
+area: {{ surface }}
+<br>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.table.label() }}
+    {{ form.table(value=table) }}
+    <br>
+    {{ form.dimension.label() }}
+    {{ form.dimension(value=dimension) }}
+    <br>
+    {{ form.price.label() }}
+    {{ form.price(value=price) }}
+    <br>
+    {{ form.surface.label() }}
+    {{ form.surface(value=surface) }}
+    <br>
+    {{ form.submit() }}
+</form>
+{% else %}
+<form method="POST">
+    {{ form.table.label() }}
+    {{ form.table() }}
+    <br>
+    {{ form.dimension.label() }}
+    {{ form.dimension() }}
+    <br>
+    {{ form.price.label() }}
+    {{ form.price() }}
+    <br>
+    {{ form.surface.label() }}
+    {{ form.surface() }}
+    <br>
+    {{ form.submit() }}
+</form>
+
+{% endif %}
+  
+{% endblock %}

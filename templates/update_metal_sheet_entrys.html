@@ -1,0 +1,70 @@
+{% extends "base2.html" %}
+{% block title %}Update metal sheet prices{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+{% if get_flashed_messages() %}
+{% for flash in get_flashed_messages() %}
+    {{ flash }}
+{% endfor %}
+{% endif %}
+<h1>Update metal sheet price</h1>
+
+{{name}} {{table}} 
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.thickness.label() }}
+    {{ form.thickness(value=dimension_to_update[0]) }}
+    <br>
+    {{ form.price_per_ton.label() }}
+    {{ form.price_per_ton(value=dimension_to_update[1]) }}
+    <br>
+    {{ form.kg_per_sqm.label() }}
+    {{ form.kg_per_sqm(value=dimension_to_update[2]) }}
+    <br>
+    {{ form.flanges_price.label() }}
+    {{ form.flanges_price(value=dimension_to_update[4]) }}
+    <br>
+    {{ form.corners_price.label() }}
+    {{ form.corners_price(value=dimension_to_update[5]) }}
+    <br>
+    {{form.submit()}}
+</form>
+  
+{% if items %}
+    
+        <table>
+          <tr>
+            <th>Thickness</th>
+            <th>Price per ton</th>
+            <th>KG per Sqm</th>
+            <th>Price per Sqm</th>
+            <th>Flanges price per meter</th>
+            <th>Corners price per um</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+          {% for item in items %}
+          <tr>
+            <td>{{ item[0] }}</td>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[4] }}</td>
+            <td>{{ item[5] }}</td>
+            <td><a href="{{ url_for('update_metal_sheet_entrys', dimension_to_update = item[0], table_name = name) }}">Update</a></td>
+            <td><a href="{{ url_for('delete_metal_sheet_thickness', dimension_to_delete = item[0], table = table, name = name, choice = 'thickness') }}">Delete</a></td>
+
+          </tr>            
+          {% endfor %}
+        </table>   
+
+{% else %}
+<p> There are no items yet</p>
+    
+{% endif%}
+  
+<a href="{{ url_for('metal_sheet', table=table, name=name) }}" class="btn btn-primary">Insert page</a>
+{% endblock %}

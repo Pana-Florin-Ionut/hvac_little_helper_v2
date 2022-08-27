@@ -1,0 +1,98 @@
+{% extends "base2.html" %}
+{% block title %}Client {{ client[1] }} {% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  
+<div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Client {{ client[1] }} </h1>    
+   
+    <br>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Client name: {{ client[1] }}</h5>
+            <p class="card-text">Client identification: {{ client[2] }}</p>
+            <p class="card-text">Client address: {{ client[3] }}</p>
+            <p class="card-text">Client email: {{ client[4] }}</p>
+            <p class="card-text">About: {{ client[5] }}</p>
+            <a href="{{ url_for('clients') }}" class="btn btn-primary">Back to Clients</a>
+            <a href="{{ url_for('create_projects', id=client[0]) }}" class="btn btn-secondary">Create Project</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Contact persons</h5>
+            {% if persons %}
+            <table class="table table-bordered">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Person Name</th>
+                <th scope="col">Person Email</th>
+                <th scope="col">Departament</th>
+                <th scope="col">About</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+              </tr>
+                {% for person in persons %}
+                  <tr>
+                    <td scope="row">{{ person[0] }}</td>
+                    <td>{{ person[2] }}</td>
+                    <td>{{ person[3] }}</td>
+                    <td>{{ person[4] }}</td>
+                    <td>{{ person[5] }}</td>
+                    <td><a href="{{ url_for('update_contact_person', person_id = person[0]) }}" class="btn btn-info">Update</a></td>
+                    <td><a href="{{ url_for('delete_contact_person', id = person[0], client_id = client[0]) }} " class="btn btn-danger">Delete</a></td>
+                
+                  </tr>
+                {%endfor %}
+            </table>
+            {% endif %}
+            <p class="card-text">Text</p>
+            <a href="{{ url_for('add_contact_person', id = client[0]) }}" class="btn btn-outline-dark">Add Contact Person</a>
+          </div>
+        </div>
+      </div>
+
+      {% if projects %}
+      <table>
+        <tr>
+          <th>Project no.</th>
+          <th>Client no.</th>
+          <th>Client name</th>
+          <th>Project name</th>
+          <th>Project address</th>
+          <th>About</th>
+          <th>Date added</th>
+        </tr>
+        {% for project in projects %}
+        <tr>
+          <td>{{ project[0] }}</td>
+          <td>{{ project[1] }}</td>
+          <td>{{ project[2] }}</td>
+          <td><a href="{{ url_for('project_page', idx = project[0]) }}">{{ project[3] }}</a></td>
+          <td>{{ project[4] }}</td>
+          <td>{{ project[5] }}</td>
+          <td>{{ project[6] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+        <h2>No project yet</h2>
+      {% endif %}
+    </div>
+
+
+
+   
+
+{% endblock %}

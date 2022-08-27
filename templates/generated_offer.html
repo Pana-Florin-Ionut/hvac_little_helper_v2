@@ -1,0 +1,67 @@
+{% extends "base2.html" %}
+{% block title %}Make offer{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Generated</h1>
+
+<!-- <h2>Offer: {{ offer }}</h2> -->
+<a href="{{ url_for('manufactured_items', offer_name=offer_name )}}">Manufactured items</a>
+<br>
+<a href="{{ url_for('bought_items', offer_name=offer_name )}}">Bought items</a>
+<br>
+<a href="{{ url_for('standard_offer_items', offer_name=offer_name )}}">Standard items</a>
+<br>
+<a href="{{ url_for('offer_page', idx = idx )}}">Offer page</a>
+<br>
+<a href="{{ url_for('generate_offer_excel', offer_name = offer_name)}}">Generate excel</a>
+<br>
+<a href="{{ url_for('create_labels', offer_name = offer_name)}}">Generate Labels</a>
+
+
+<table>
+        <tr>
+            <th>Item no.</th>
+            <th>Item type</th>
+            <th>Characteristics</th>
+            <th>UM</th>
+            <th>Quantity</th>
+            <th>Price per UM</th>
+            <th>Total price</th>
+            <th>Category</th>
+            <th>Obs</th>
+
+        </tr>
+        {% for item in generated_offer %}
+        <tr>
+            <th>{{ item[0] }}</th>
+            <th>{{ item[13] }}</th>
+            <th>{{ item[14] }}</th>
+            <th>{{ item[9] }}</th>
+            <th>{{ item[10] }}</th>
+            <th>{{ item[22] }}</th>
+            {% if item[23] %}
+              <th>{{ "%0.2f"|format(item[23]) }}</th>
+            {% else %}
+            <th>{{ item[23] }}</th>
+            {% endif %}
+            <th>{{ item[11] }}</th>
+            <th>{{ item[12] }}</th>
+        </tr>
+        {% endfor %}
+
+{% endblock %}
+
+
+
+
+
+
+

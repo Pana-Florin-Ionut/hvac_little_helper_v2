@@ -1,0 +1,77 @@
+{% extends "base2.html" %}
+{% block title %}Project_page{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<main class="container">
+    <div class="content">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h4 class="card-title">{{ project[0] }}. {{ project[3] }}</h4>
+              <h5 class="card-subtitle mb-2 text-muted">{{ project[2] }}</h5>
+              <h5 class="card-subtitle mb-2 text-muted">{{ project[4] }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted"><td>{{ project[6].strftime('%H:%M - %d-%B-%Y') }}</td></h6>
+              <p class="card-text"><td>{{ project[5] }}</td></p>
+              <a href="{{ url_for('update_project', idx = project[0])}}" class="btn btn-outline-secondary">Update</a>
+
+              
+    <!-- modal button  -->
+    <td><button onclick="document.getElementById('{{project[0]}}').style.display='block'" class="btn btn-danger">Delete</button>
+
+        <!-- start of modal -->
+        <div id="{{project[0]}}" class="w3-modal">
+          <div class="w3-modal-content">
+            <header class="modal-header"> 
+              <span onclick="document.getElementById('{{project[0]}}').style.display='none'" 
+              class="w3-button w3-display-topright">&times;</span>
+              <h2>Do you really want to delete - {{ project[3] }}</h2>
+            </header> 
+            <div class="w3-container grid text-center">
+            <p>Note that this is ireversible</p>           
+            <a href="{{ url_for('delete_project', idx = project[0]) }}" class="btn btn-danger">Delete</a>         
+            </div>          
+          </div>
+        </div>   
+      </td>
+      <!-- end of modal -->
+      
+              <!-- <a href="{{ url_for('delete_project', idx = project[0])}}" class="btn btn-danger">Delete</a> -->
+            </div>
+          </div>
+       <!-- Project: {{ project }} -->
+        
+        <br>
+
+        {% if offers %}
+            <!-- Offers: {{ offers }} -->
+            <h3>Offers</h3>
+            <div class="card">
+                <table>
+                    <tr>
+                        <th>Offer id</th>
+                        <th>Project id</th>
+                        <th>Offer name</th>
+                        <th>Metal sheet type</th>
+                        <th>Date Created</th>
+                    </tr>
+                    {% for offer in offers%}
+                    <tr>
+                        <td>{{ offer[0] }}</td>
+                        <td>{{ offer[1] }}</td>
+                        <td><a href="{{ url_for('offer_page', idx=offer[0])}} ">{{ offer[2] }}</a></td>
+                        <td>{{ offer[3] }}</td>
+                        <td>{{ offer[4].strftime('%H:%M - %d-%B-%Y') }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+                    
+        {% endif %}
+
+        <h3>Create offer</h3>
+        <a href="{{ url_for('create_new_offer', idx = project[0]) }}">Create Offer</a>
+    </div>
+</main>
+  
+{% endblock %}

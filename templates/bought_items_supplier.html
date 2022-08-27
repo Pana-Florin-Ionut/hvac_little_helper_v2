@@ -1,0 +1,52 @@
+{% extends "base2.html" %}
+{% block title %}Make offer{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Bought {{ supplier_name }}</h1>
+<h2>Offer name: {{ offer_name }}</h2>
+<!-- {{offer_name}} -->
+
+<!-- <h2>Offer: {{ offer }}</h2> -->
+{% if table %}
+<a href="{{ url_for('generate_supplier_offer_table', offer_name=offer_name, supplier_name = supplier_name, offer_type = 'bought')}}">Create excel file</a>
+{% else %}
+<h4>No offer</h4>
+{% endif %}
+<br>
+
+        {% if table %}
+            <table>
+              <tr>
+                <th>Item no</th>
+                <th>Item name</th>
+                <th>Item characteristics</th>
+                <th>UM</th>
+                <th>Quantity</th>
+                <th>Supplier name</th>
+              </tr>
+          {% for b_item in table %}
+              <tr>
+                <td>{{b_item[0]}}</td>
+                <td>{{b_item[1] }}</td>
+                <td>{{b_item[2]}}</td>
+                <td>{{b_item[3]}}</td>
+                <td>{{b_item[4]}}</td>
+                <td>{{b_item[6]}}</td>
+              </tr>
+          {% endfor %}
+        </table>
+        {% else %}
+          <h4>No table</h4>
+        {% endif %}
+
+
+
+{% endblock %}

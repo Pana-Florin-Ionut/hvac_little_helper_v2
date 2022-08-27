@@ -1,0 +1,64 @@
+
+{% extends "base2.html" %}
+{% block title %}Add Contact Person{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}  
+  <div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Add contact person for {{ client[1] }}</h1>
+    {{ client }}
+  
+    <h1>Add contact</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.person_name.label() }}        
+        {{ form.person_name() }}
+        <br>
+        {{ form.person_phone.label() }}        
+        {{ form.person_phone() }}
+        <br>
+        {{ form.person_email.label() }}        
+        {{ form.person_email() }}
+        <br>
+        {{ form.departament.label() }}        
+        {{ form.departament() }}
+        <br>
+        {{form.submit()}}
+    </form>
+    <br>
+
+  <a href="{{ url_for('client_page', id= client[0]) }}" class="btn btn-outline-primary">Client page {{ client[1] }}</a>
+<br>
+{% if persons %}
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Person Name</th>
+    <th>Person Email</th>
+    <th>Departament</th>
+  </tr>
+  {% for person in persons %}
+  <tr>
+    <td>{{ person[0] }}</td>
+    <td><a href="{{ url_for('update_contact_person', person_id = person[0]) }}">{{ person[2] }}</a></td>
+    <td>{{ person[3] }}</td>
+    <td>{{ person[4] }}</td>
+
+  </tr>
+      
+
+    {%endfor %}
+
+</table>
+
+    
+
+{% endif %}
+
+{% endblock %}

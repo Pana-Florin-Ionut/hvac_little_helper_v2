@@ -1,0 +1,40 @@
+
+{% extends "base2.html" %}
+{% block title %}Add Contact Person{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}  
+  <div class="container">
+    {% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+    {% endif %}
+    <h1>Update contact person for {{ person[2] }}</h1>
+    {{ person }}
+  
+    <h1>Add contact</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.person_name.label() }}        
+        {{ form.person_name(value=person[2]) }}
+        <br>
+        {{ form.person_phone.label() }}        
+        {{ form.person_phone(value=person[3]) }}
+        <br>
+        {{ form.person_email.label() }}        
+        {{ form.person_email(value=person[4]) }}
+        <br>
+        {{ form.departament.label() }}        
+        {{ form.departament(value=person[5]) }}
+        <br>
+        {{form.submit()}}
+    </form>
+    <br>
+
+  
+<br>
+<a href="{{ url_for('client_page', id = person[1]) }}" class="btn btn-outline-dark">Back to client page</a>
+
+{% endblock %}

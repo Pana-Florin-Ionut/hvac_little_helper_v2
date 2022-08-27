@@ -1,0 +1,30 @@
+{% extends "base2.html" %}
+{% block title %}Create Offer 2{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Make Offer </h1>
+
+<!-- <h2>{{ project }}</h2> -->
+<h3>Client: {{project[2] }}</h3>
+<h3>Project: {{project[3] }}</h3>
+
+
+
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  {{ form.offer_name.label() }}
+  {{ form.offer_name() }}
+
+  {{ form.submit() }}
+
+
+  {% endblock %}

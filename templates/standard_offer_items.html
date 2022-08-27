@@ -1,0 +1,67 @@
+{% extends "base2.html" %}
+{% block title %}Make offer{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Standard items</h1>
+
+<!-- <h2>Offer: {{ offer }}</h2> -->
+
+{% if offer %}
+<a href="{{ url_for('generate_custom_offer_excel', offer_name=offer_name, offer_type = 'standard')}}">Create excel file</a>
+{% else %}
+<h4>No offer</h4>
+{% endif %}
+<br>
+<table>
+    <tr>
+        <th>Item no.</th>
+        <th>Item type</th>
+        <th>Characteristics</th>
+        <th>UM</th>
+        <th>Quantity</th>
+        <th>Price per UM</th>
+        <th>Total price</th>
+        <th>Category</th>
+        <th>Observations</th>
+
+
+
+    </tr>
+    {% if offer %}
+      {% for item in offer %}
+      <tr>
+          <td>{{ item[0] }}</td>
+          <td>{{ item[13] }}</td>
+          <td>{{ item[14] }}</td>
+          <td>{{ item[9] }}</td>
+          <td>{{ item[10] }}</td>
+          <td>{{ item[22] }}</td>
+          {% if item[23] %}
+              <th>{{ "%0.2f"|format(item[23]) }}</th>
+            {% else %}
+            <th>{{ item[23] }}</th>
+            {% endif %}
+          <td>{{ item[11] }}</td>
+          <td>{{ item[12] }}</td>  
+
+      </tr>
+      {% endfor %}
+    {% endif %}
+
+
+{% endblock %}
+
+
+
+
+
+
+

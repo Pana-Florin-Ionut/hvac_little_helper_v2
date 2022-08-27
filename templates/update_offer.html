@@ -1,0 +1,29 @@
+{% extends "base2.html" %}
+{% block title %}Update offer{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Update offer</h1>
+
+<h2>{{ offer }}</h2>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <h1>Create Offer Name</h1>
+  {{ form.offer_name.label() }}
+  {{ form.offer_name() }}
+  {{ form.metal_sheet_characteristics.label() }}
+  {{ form.metal_sheet_characteristics() }}
+  
+
+  {{ form.submit}}
+</form>
+
+{% endblock %}

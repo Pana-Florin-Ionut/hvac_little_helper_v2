@@ -1,0 +1,31 @@
+{% extends "base2.html" %}
+{% block title %}Create offer name{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+{% if get_flashed_messages() %}
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+{% endif %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <h1>Create Offer Name</h1>
+    {{ form.offer_name.label }}
+    {{ form.offer_name }}
+    {{ form.client.label }}
+    {{ form.client }}
+
+    {{ form.submit}}
+</form>
+
+
+{% if offers %}
+    {% for i in offers %}
+    <p><a href="{{ url_for('create_offer', offer=i[1], client=i[2], form=form, args=args)}}">{{i[0]}}</a> - {{i[1]}} - {{i[2]}} - {{i[3]}}</p>
+    {% endfor %}
+{% endif %}
+
+  
+{% endblock %}

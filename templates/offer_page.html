@@ -1,0 +1,67 @@
+{% extends "base2.html" %}
+{% block title %}Offer page{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if get_flashed_messages() %}
+  {% for flash in get_flashed_messages() %}
+      {{ flash }}
+  {% endfor %}
+{% endif %}
+<h1>Offer page</h1>
+
+<!-- <h2>Offer: {{ offer }}</h2> -->
+<!-- <h2>Project: {{ project }}</h2> -->
+<a href="{{ url_for('insert_offer_items', idx=offer[0])}}">Insert Items</a>
+<br>
+
+<a href="{{ url_for('project_page', idx=project[0] )}}">Project page</a>
+
+<br>
+
+<a href="{{ url_for('generated_offer', offer_name=offer[2] )}}">Generated offer</a>
+
+<br>
+<a href="{{ url_for('generate_offer', offer_name=offer[2] )}}" class="btn btn-dark">Generate offer</a>
+<br>
+
+<a href="{{ url_for('upload_excel', offer_name=offer[2])}}">Upload excel</a><br>
+Curent items
+  <table>
+      <tr>
+          <th>Item no.</th>
+          <th>{{ form.item.label() }}</th>
+          <th>{{ form.characteristics_A.label() }}</th>
+          <th>{{ form.characteristics_B.label() }}</th>
+          <th>{{ form.characteristics_C.label() }}</th>
+          <th>{{ form.characteristics_D.label() }}</th>
+          <th>{{ form.characteristics_E.label() }}</th>
+          <th>{{ form.characteristics_F.label() }}</th>
+          <th>{{ form.um.label() }}</th>
+          <th>{{ form.quantity.label() }}</th>
+          <th>{{ form.category.label() }}</th>
+          <th>{{ form.observations.label() }}</th>
+          <th>Update</th>
+          <th>Delete</th>
+  
+      </tr>
+      {% for item in items %}
+      <tr>
+          <td>{{ item[0] }}</td>
+          <td>{{ item[2] }}</td>
+          <td>{{ item[3] }}</td>
+          <td>{{ item[4] }}</td>
+          <td>{{ item[5] }}</td>
+          <td>{{ item[6] }}</td>
+          <td>{{ item[7] }}</td>
+          <td>{{ item[8] }}</td>
+          <td>{{ item[9] }}</td>
+          <td>{{ item[10] }}</td>
+          <td>{{ item[11] }}</td>
+          <td>{{ item[12] }}</td>  
+      </tr>
+      {% endfor %}
+<br>
+{% endblock %}

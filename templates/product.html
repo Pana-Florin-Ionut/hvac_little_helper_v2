@@ -1,0 +1,84 @@
+{% extends "base2.html" %}
+{% block title %}Product page{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+
+{% if get_flashed_messages() %}
+{% for flash in get_flashed_messages() %}
+    {{ flash }}
+{% endfor %}
+{% endif %}
+
+  <h1>Product page {{ product_name }}</h1>
+  <form method="POST">
+    
+    {{ form.hidden_tag() }}
+    {{ form.dimension_A.label() }}
+    {{ form.dimension_A() }}
+    <br>
+    {{ form.dimension_B.label() }}
+    {{ form.dimension_B() }}
+    <br>
+    {{ form.dimension_C.label() }}
+    {{ form.dimension_C() }}
+    <br>
+    {{ form.dimension_D.label() }}
+    {{ form.dimension_D() }}
+    <br>
+    {{ form.metal_sheet_thickness.label() }}
+    {{ form.metal_sheet_thickness() }}
+    <br>  
+    {{ form.area.label() }}
+    {{ form.area() }}
+    <br>
+    {{ form.about.label() }}
+    {{ form.about() }}
+    <br>
+
+    {{form.submit()}}
+</form>
+<br>
+  
+{% if table %}
+<table>
+    <tr>
+        <th>Item no.</th>
+        <th>Dimension A</th>
+        <th>Dimension B</th>
+        <th>Dimension C</th>
+        <th>Dimension D</th>
+        <th>Metal sheet thickness</th>
+        <th>Area</th>
+        <th>About</th>
+        <th>Actions</th>
+    </tr>
+    {% for item in table %}
+    <tr>
+        <th>{{ item[0] }}</th>
+        <th>{{ item[1] }}</th>
+        <th>{{ item[2] }}</th>
+        <th>{{ item[3] }}</th>
+        <th>{{ item[4] }}</th>
+        <th>{{ item[5] }}</th>
+        <th>{{ item[6] }}</th>
+        <th>{{ item[7] }}</th>
+        <th><a href="{{ url_for('update_product', product_name = product_name, idx=item[0]) }}" class="btn btn-info">Update</a>
+            <a href="{{ url_for('delete_product', product_name = product_name, idx=item[0]) }}" class="btn btn-danger">Delete</a></th>
+    </tr>
+
+        
+        
+    {% endfor %}
+   
+</table>
+    
+{% else %}
+    <h3>There are any standard items</h3>
+{% endif %}
+
+
+
+{% endblock %}
