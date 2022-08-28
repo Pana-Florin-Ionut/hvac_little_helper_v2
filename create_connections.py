@@ -53,7 +53,7 @@ def connect():
 # pool = SimpleConnectionPool(
 #     minconn=1, maxconn=10, user=user, password=password, host=host, database=database
 # )
-pool = SimpleConnectionPool(minconn=1, maxconn=10, database_url=database_url)
+pool = SimpleConnectionPool(minconn=1, maxconn=10, dns=database_url)
 
 
 @contextmanager
